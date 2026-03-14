@@ -11,16 +11,16 @@ def get_token():
     """Фикстура для получения токена один раз за сессию."""
     global API_key
     creds = {
-        'login': '{login}',
-        'password': '{password}',
+        'login': 'логин',
+        'password': 'пароль',
     }
     resp = requests.post(f"{base_url}/api-v2/auth/companies", json=creds)
     assert resp.status_code == 200, "Ошибка при получении компании"
 
     company_id = resp.json()['content'][0]['id']
     creds_auth = {
-        'login': '{login}',
-        'password': '{password}',
+        'login': 'логин',
+        'password': 'пароль',
         'companyId': company_id,
     }
 
