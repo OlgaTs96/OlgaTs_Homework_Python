@@ -3,21 +3,12 @@ import requests
 import uuid
 
 base_url = "https://yougile.com"
-API_key = None
 
 
 @pytest.fixture(scope='session')
 def get_token():
     """Фикстура для получения токена один раз за сессию."""
-    global API_key
-    creds = {
-        'login': 'ucfh4@dollicons.com',
-        'password': 'Test1234!',
-    }
-    resp = requests.post(f"{base_url}/api-v2/auth/companies", json=creds)
-    assert resp.status_code == 200, "Ошибка при получении компании"
-
-    company_id = resp.json()['content'][0]['id']
+    company_id = get_company_id()
     creds_auth = {
         'login': 'ucfh4@dollicons.com',
         'password': 'Test1234!',
@@ -166,3 +157,15 @@ def test_get_project_by_id_negative_no_auth(created_project):
     assert response.status_code == 401, (
         f"Ожидался код 401, получен {response.status_code}"
     )
+
+
+def get_company_id():
+    creds = {
+        'login': 'ucfh4@dollicons.com',
+        'password': 'Test1234!',
+    }
+    resp = requests.post(f"{base_url}/api-v2/auth/companies", json=creds)
+    assert resp.status_code == 200, "Ошибка при получении компании"
+
+    company_id = resp.json()['content'][0]['id']
+    return company_id
