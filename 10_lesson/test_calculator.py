@@ -24,7 +24,7 @@ def test_calculator():
             calculator.click()
 
         with allure.step("Получение результата с экрана калькулятора"):
-            screen = calculator.screen()
+            screen = calculator.screen("15")
 
         with allure.step("Проверка, что результат равен '15'"):
             assert screen == '15', f"Ожидалось 15, но получили {screen}"

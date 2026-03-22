@@ -63,7 +63,7 @@ class CalculatorPage():
         self._driver.find_element(By.XPATH,
                                   "//*[contains(text(),'=')]").click()
 
-    def screen(self):
+    def screen(self, answer) -> str:
         """
         Возвращает текст с экрана калькулятора после вычисления.
         Возвращаемое значение:
@@ -71,8 +71,6 @@ class CalculatorPage():
         """
         screen = self._driver.find_element(By.CSS_SELECTOR, 'div.screen')
         WebDriverWait(self._driver, 50).until(
-            EC.text_to_be_present_in_element(
-                (By.CSS_SELECTOR, "div.screen"), "15"
-            )
+            EC.text_to_be_present_in_element((By.CSS_SELECTOR, "div.screen"), answer)
         )
         return screen.text
